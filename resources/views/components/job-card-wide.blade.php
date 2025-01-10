@@ -1,4 +1,4 @@
-<div class="p-3 bg-white/5 rounded-xl flex gap-x-6 items-center border border-transparent hover:border-blue-800 group transition-colors duration-1000">
+<x-panel class="flex gap-x-6 items-center">
     <div>
         <x-employer-logo />
     </div>
@@ -12,4 +12,4 @@
         <x-tag>Backend</x-tag>
         <x-tag>Api</x-tag>
     </div>
-</div>
+</x-panel>
