@@ -1,11 +1,11 @@
-<div class="p-3 bg-white/5 rounded-xl flex gap-x-6">
+<div class="p-3 bg-white/5 rounded-xl flex gap-x-6 items-center border border-transparent hover:border-blue-800 group transition-colors duration-1000">
     <div>
-        <img src="http://picsum.photos/seed/{{ rand(1,100) }}/100/100" alt="Placeholder" class="rounded-xl">
+        <x-employer-logo />
     </div>
-    <div class="py-8 font-bold flex-1">
-        <a href="#" class="self-start text-sm">GoyExec</a>
-        <h3>Full Stack Laravel Developer</h3>
-        <p>Fulltime - from $60000</p>
+    <div class="flex-1 flex flex-col">
+        <a href="#" class="self-start text-sm text-gray-400">GoyExec</a>
+        <h3 class="font-bold text-xl mt-2 group-hover:text-blue-800 transition-colors duration-1000">Full Stack Laravel Developer</h3>
+        <p class="text-sm text-gray-300 mt-5">Fulltime - from $60000</p>
     </div>
     <div class="flex items-center justify-between mt-auto gap-x-5">
         <x-tag>FrontEnd</x-tag>
