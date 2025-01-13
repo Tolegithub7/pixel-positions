@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\File;
+use Illuminate\Validation\Rules\Password;
+
+// use Illuminate\Support\Facades\Password;
+// use Illuminate\Http\File;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Validation\Rules\Password;
 
 class RegisteredUserController extends Controller
 {
@@ -41,21 +46,26 @@ class RegisteredUserController extends Controller
 
         // Validate employer attributes
         $employerAttributes = $request->validate([
-            'name' => ['required'],
-            'logo' => ['required', 'mimes:png,jpg,webp'],
+            'employer' => ['required'],
+            'logo' => ['required', File::types(['png', 'jpg', 'webp'])],
+            // 'logo' => ['required', 'mimes:png,jpg,webp'],
         ]);
 
         // Create the user
         $user = User::create($userAttributes);
 
         // Store the employer logo $employerAttributes['logo'] = 
-        $request->logo->store('logos');
+        $logoPath = $request->logo->store('logos');
 
         // Create the employer associated with the user
-        $user->employer()->create($employerAttributes);
+        $user->employer()->create([
+            'name' => $employerAttributes['employer'],
+            'logo' => $logoPath,
+        ]);
 
         // Log in the newly created user
         Auth::login($user);
+        return redirect('/');
     }
 
 
