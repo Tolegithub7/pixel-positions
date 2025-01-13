@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class RegisteredUserController extends Controller
 {
@@ -20,6 +24,7 @@ class RegisteredUserController extends Controller
     public function create()
     {
         //
+        return view('auth.register');
     }
 
     /**
@@ -27,8 +32,32 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate user attributes
+        $userAttributes = $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'confirmed', Password::min(6)],
+        ]);
+
+        // Validate employer attributes
+        $employerAttributes = $request->validate([
+            'name' => ['required'],
+            'logo' => ['required', 'mimes:png,jpg,webp'],
+        ]);
+
+        // Create the user
+        $user = User::create($userAttributes);
+
+        // Store the employer logo $employerAttributes['logo'] = 
+        $request->logo->store('logos');
+
+        // Create the employer associated with the user
+        $user->employer()->create($employerAttributes);
+
+        // Log in the newly created user
+        Auth::login($user);
     }
+
 
     /**
      * Display the specified resource.
