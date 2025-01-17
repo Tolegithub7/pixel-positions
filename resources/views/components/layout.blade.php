@@ -24,9 +24,17 @@
                 <a href="#" class="hover:text-white">Salaries</a>
                 <a href="#" class="hover:text-white">Companies</a>
             </div>
-            <div class="font-bold hover:text-white/70">
-                <a href="#">Post a Job</a>
-            </div>
+            @auth
+                <div class="font-bold hover:text-white/70">
+                    <a href="/jobs/create">Post a Job</a>
+                </div>
+            @endauth
+            @guest
+                <div class="flex justify-between space-x-6 font-bold text-white/80">
+                    <a href="/register" class="hover:text-white">Sign Up</a>
+                    <a href="/login" class="hover:text-white">Log In</a>
+                </div>
+            @endguest
         </Nav>
         <Main class="mt-8 max-w-[986px] mx-auto">
             {{ $slot }}
