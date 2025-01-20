@@ -25,8 +25,13 @@
                 <a href="#" class="hover:text-white">Companies</a>
             </div>
             @auth
-                <div class="font-bold hover:text-white/70">
+                <div class="font-bold hover:text-white/70 flex justify-between space-x-6">
                     <a href="/jobs/create">Post a Job</a>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button>LogOut</button>
+                    </form>
                 </div>
             @endauth
             @guest
